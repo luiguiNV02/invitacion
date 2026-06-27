@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Invitación: Super Abraham</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- DECORACIONES FLOTANTES (fondo) -->
+    <div class="deco-layer" aria-hidden="true">
+        <!-- Personajes corriendo juntos -->
+        <img src="assets/Gifs/Small_Mario_Walk_SMB.gif" class="deco deco-mario" alt="">
+        <img src="assets/Gifs/SMB_NES_Luigi_Running.gif" class="deco deco-luigi" alt="">
+        
+        <!-- Estrellas Lado Izquierdo -->
+        <img src="assets/Gifs/Starman.gif" class="deco deco-star deco-star-1" alt="">
+        <img src="assets/Gifs/Starman.gif" class="deco deco-star deco-star-2" alt="">
+        <img src="assets/Gifs/Starman.gif" class="deco deco-star deco-star-3" alt="">
+        <img src="assets/Gifs/Starman.gif" class="deco deco-star deco-star-4" alt="">
+        
+        <!-- Estrellas Lado Derecho -->
+        <img src="assets/Gifs/Starman.gif" class="deco deco-star deco-star-5" alt="">
+        <img src="assets/Gifs/Starman.gif" class="deco deco-star deco-star-6" alt="">
+        <img src="assets/Gifs/Starman.gif" class="deco deco-star deco-star-7" alt="">
+        <img src="assets/Gifs/Starman.gif" class="deco deco-star deco-star-8" alt="">
+    </div>
+
+
+    <div id="splashScreen" class="container splash-mode">
+        <div class="splash-wrapper">
+            <img src="assets/sprites/Presentación.jpeg" alt="Invitación" class="banner-img">
+            
+            <!-- Botón superpuesto -->
+            <div class="overlay-container">
+                <button id="btnIrAlFormulario" class="btn-confirmar pulse-animation">
+                    ¡CONFIRMAR ASISTENCIA!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 2: FORMULARIO (Oculto al inicio) -->
+    <div id="formContainer" class="container" style="display: none;">
+        <div class="banner">
+            <img src="assets/sprites/Encabezado.jpeg" alt="Super Abraham Banner" class="banner-img">
+        </div>
+
+        <div class="content">
+            <div class="info-box">
+                <img src="assets/Gifs/Starman.gif" style="width:20px; vertical-align:text-bottom; margin-right:6px;" alt=""> <b>Fecha:</b> Este 11 de mes<br>
+                <img src="assets/Gifs/Fire_Flower_SMB.gif" style="width:16px; vertical-align:text-bottom; margin-right:10px; margin-left:2px;" alt=""> <b>Dresscode:</b> Si tienes dudas, escríbeme.
+            </div>
+
+            <form id="invitacionForm">
+                <div class="form-group">
+                    <label>Tu Nombre y Apellido</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Escribe aquí..." required>
+                </div>
+
+                <div class="form-group">
+                    <label>¿Confirmas tu asistencia?</label>
+                    <div class="radio-card">
+                        <label>
+                            <input type="radio" name="asistencia" value="Sí" required>
+                            <div class="radio-option">
+                                <img src="assets/Gifs/SMB_1-up_Mushroom_Sprite.png" style="width:24px; vertical-align:middle; margin-right:5px; filter: drop-shadow(0 0 2px rgba(67, 176, 71, 0.5));" alt=""> Sí, voy
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="asistencia" value="No">
+                            <div class="radio-option">
+                                <img src="assets/Gifs/Fire_Flower_SMB.gif" style="width:18px; vertical-align:middle; margin-right:5px; filter: drop-shadow(0 0 2px rgba(229, 37, 33, 0.5));" alt=""> No puedo
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-enviar" id="btnSubmit">
+                    ENVIAR RESPUESTA
+                    <img src="assets/Gifs/SMBCoin.gif" style="width:22px; vertical-align:middle; margin-left:8px;" alt="">
+                </button>
+            </form>
+
+            <div id="mensaje"></div>
+
+            <!-- PANTALLA DE CONFIRMACIÓN: Sí voy -->
+            <div id="confirmacionSi" class="confirmacion-screen" style="display:none;">
+                <div class="confirm-icon">
+                    <img src="assets/Gifs/Starman.gif" class="confirm-gif-icon" alt="Estrella">
+                </div>
+                <h2 class="confirm-title confirm-title--si">¡Yippee! ¡Nos vemos ahí!</h2>
+                <p class="confirm-body">Tu lugar está reservado, <strong id="nombreInvitadoSi"></strong>.<br>¡Prepárate para una fiesta al estilo Mario Bros!</p>
+                <div class="confirm-badge confirm-badge--si">¡Te estaremos esperando ese día! 🕹️</div>
+                
+                <span class="sec-title" style="margin-top: 10px; margin-bottom: 8px; display: block;">¿Quieres venir acompañado?</span>
+                <a id="whatsappLink" class="btn-whatsapp" target="_blank" style="margin-bottom: 5px; padding: 10px;">
+                   💬 Consultar acompañante vía WhatsApp
+                </a>
+
+                <!-- Monedas reales animadas -->
+                <div class="confirm-coins">
+                    <img src="assets/Gifs/SMBCoin.gif" class="confirm-gif-coin" alt="moneda">
+                    <img src="assets/Gifs/SMBCoin.gif" class="confirm-gif-coin" alt="moneda">
+                    <img src="assets/Gifs/SMBCoin.gif" class="confirm-gif-coin" alt="moneda">
+                    <img src="assets/Gifs/SMBCoin.gif" class="confirm-gif-coin" alt="moneda">
+                    <img src="assets/Gifs/SMBCoin.gif" class="confirm-gif-coin" alt="moneda">
+                </div>
+            </div>
+
+            <!-- PANTALLA DE CONFIRMACIÓN: No puedo -->
+            <div id="confirmacionNo" class="confirmacion-screen" style="display:none;">
+                <div class="confirm-icon">
+                    <img src="assets/Gifs/Fire_Flower_SMB.gif" class="confirm-gif-icon" alt="Flor de fuego">
+                </div>
+                <h2 class="confirm-title confirm-title--no">¡Uy, qué lástima!</h2>
+                <p class="confirm-body">Lamentamos que no puedas venir, <strong id="nombreInvitadoNo"></strong>.<br>¡Te vamos a extrañar mucho en la fiesta! 💙</p>
+                <div class="confirm-badge confirm-badge--no">¡Espero que pronto nos veamos! 👾</div>
+                <!-- Hongo power-up como símbolo de "hasta pronto" -->
+                <div class="confirm-coins">
+                    <img src="assets/Gifs/SMB_1-up_Mushroom_Sprite.png" class="confirm-gif-mushroom" alt="1UP">
+                    <span class="confirm-1up-text">1UP - ¡Para la próxima!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <!-- Etiqueta de audio -->
+    <audio id="bgMusic" loop>
+        <source src="escenarios/themes/Overworld_Theme_New_Super_Mario_Bros_DS.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Botón de Mute flotante -->
+    <button id="muteBtn" class="mute-control">
+        <span id="muteIcon">🔊</span>
+    </button>
+</body>
+</html>
