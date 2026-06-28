@@ -89,7 +89,7 @@ if (form) {
         
         // Validación local para evitar bromas repetidas
         if (localStorage.getItem('asistenciaRegistrada')) {
-            alert("Ya has enviado tu respuesta anteriormente. ¡Gracias!");
+            mostrarAlerta("Ya has enviado tu respuesta anteriormente. ¡Gracias!");
             btnSubmit.disabled = false;
             btnSubmit.innerText = "ENVIAR RESPUESTA";
             return;
@@ -104,7 +104,7 @@ if (form) {
         };
 
         if (formData.nombre.length < 3) {
-            alert("Por favor, ingresa tu nombre completo.");
+            mostrarAlerta("Por favor, ingresa tu nombre completo.");
             btnSubmit.disabled = false;
             btnSubmit.innerText = "ENVIAR RESPUESTA";
             return;
@@ -126,7 +126,7 @@ if (form) {
             }
 
             if (result.result === "error") {
-                alert(result.message || "Error al registrar.");
+                mostrarAlerta(result.message || "Error al registrar.");
                 btnSubmit.disabled = false;
                 btnSubmit.innerText = "ENVIAR RESPUESTA";
                 return;
@@ -163,5 +163,18 @@ if (form) {
             btnSubmit.disabled = false;
             btnSubmit.innerText = "ENVIAR RESPUESTA";
         }
+    });
+}
+
+// --- 6. ALERTA PERSONALIZADA ---
+function mostrarAlerta(mensaje) {
+    document.getElementById('customAlertMessage').innerText = mensaje;
+    document.getElementById('customAlert').style.display = 'flex';
+}
+
+const btnCerrarAlerta = document.getElementById('btnCerrarAlerta');
+if (btnCerrarAlerta) {
+    btnCerrarAlerta.addEventListener('click', () => {
+        document.getElementById('customAlert').style.display = 'none';
     });
 }
