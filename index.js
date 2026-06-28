@@ -87,20 +87,53 @@ if (form) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        // Validación local para evitar bromas repetidas
+        if (localStorage.getItem('asistenciaRegistrada')) {
+            alert("Ya has enviado tu respuesta anteriormente. ¡Gracias!");
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = "ENVIAR RESPUESTA";
+            return;
+        }
+        
         btnSubmit.disabled = true;
         btnSubmit.innerText = "Enviando...";
 
         const formData = {
-            nombre: document.getElementById('nombre').value,
+            nombre: document.getElementById('nombre').value.trim(),
             asistencia: document.querySelector('input[name="asistencia"]:checked').value
         };
 
+        if (formData.nombre.length < 3) {
+            alert("Por favor, ingresa tu nombre completo.");
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = "ENVIAR RESPUESTA";
+            return;
+        }
+
         try {
-            await fetch(CONFIG.WEB_APP_URL, {
+            const response = await fetch(CONFIG.WEB_APP_URL, {
                 method: 'POST',
-                mode: 'no-cors', 
                 body: JSON.stringify(formData)
             });
+            
+            // Intentamos leer la respuesta del servidor
+            let result;
+            try {
+                result = await response.json();
+            } catch(e) {
+                // Si falla el parseo, asumimos éxito (por si hay temas de CORS pero sí llegó)
+                result = { result: "success" };
+            }
+
+            if (result.result === "error") {
+                alert(result.message || "Error al registrar.");
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "ENVIAR RESPUESTA";
+                return;
+            }
+
+            // Guardar en local storage para que no pueda enviar de nuevo
+            localStorage.setItem('asistenciaRegistrada', 'true');
 
             // Ocultar el formulario y elementos extra
             form.style.display = "none";
