@@ -5,7 +5,6 @@
     --mario-green: #43B047;
 }
 
-/* Mejora: Aplicar box-sizing a todo para evitar problemas de ancho en móvil */
 * {
     box-sizing: border-box;
 }
@@ -656,4 +655,4 @@ input[type="radio"]:checked + .radio-option {
     transform: translateY(3px);
     box-shadow: 0 1px 0 #c8960a;
 }
-
+
