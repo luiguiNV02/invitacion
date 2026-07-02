@@ -1,0 +1,659 @@
+:root {
+    --mario-red: #E52521;
+    --mario-blue: #049CD8;
+    --mario-yellow: #FBD000;
+    --mario-green: #43B047;
+}
+
+/* Mejora: Aplicar box-sizing a todo para evitar problemas de ancho en móvil */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0a0a1a;
+    background-image: url('escenarios/walls/GALAXY.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 20px 15px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative; /* necesario para el pseudo-elemento */
+}
+
+/* Blur del fondo fuera del card */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: inherit;
+    background-attachment: fixed;
+    filter: blur(10px) brightness(0.7);
+    transform: scale(1.05); /* evita bordes blancos del blur */
+    z-index: 0;
+}
+
+.container {
+    background-color: transparent; /* Cada sección maneja su propio fondo */
+    width: 100%;
+    max-width: 450px;
+    border-radius: 18px;
+    overflow: hidden;
+    /* Sombra dramática + borde dorado tipo Mario */
+    box-shadow:
+        0 0 0 3px #FBD000,
+        0 0 0 6px #E52521,
+        0 20px 60px rgba(0, 0, 0, 0.75),
+        0 0 50px rgba(251, 208, 0, 0.3);
+}
+
+.banner {
+    background: var(--mario-blue);
+    padding: 0; 
+    line-height: 0; 
+}
+
+.banner-img {
+    width: 100%;      
+    height: auto;     
+    display: block;   
+}
+
+.content { 
+    padding: 25px;
+    border-top: 5px solid var(--mario-yellow);
+    /* Dark galaxy glass */
+    background: rgba(8, 10, 45, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: #f0f0ff;
+}
+
+/* Si ya no usas texto en el banner, puedes borrar .banner h1 */
+
+.info-box {
+    background: rgba(251, 208, 0, 0.10);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    border-left: 5px solid var(--mario-yellow);
+    line-height: 1.5;
+    color: #ffe8a0;
+}
+
+.form-group { margin-bottom: 20px; }
+
+label { display: block; font-weight: bold; margin-bottom: 8px; color: #ffd97d; }
+
+input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid rgba(251, 208, 0, 0.35);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    transition: border-color 0.3s, background 0.3s;
+}
+
+input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.40);
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--mario-yellow);
+    background: rgba(255, 255, 255, 0.13);
+    box-shadow: 0 0 0 3px rgba(251, 208, 0, 0.20);
+}
+
+.radio-card {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.radio-card label { flex: 1; }
+
+input[type="radio"] { display: none; }
+
+.radio-option {
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    padding: 15px 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.06);
+    color: #e8e8ff;
+}
+
+.radio-option:hover {
+    border-color: rgba(251, 208, 0, 0.5);
+    background: rgba(251, 208, 0, 0.08);
+}
+
+input[type="radio"]:checked + .radio-option {
+    border-color: var(--mario-yellow);
+    background: rgba(251, 208, 0, 0.18);
+    font-weight: bold;
+    color: var(--mario-yellow);
+    box-shadow: 0 0 12px rgba(251, 208, 0, 0.3);
+}
+
+.btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--mario-blue);
+    color: white;
+    text-decoration: none;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.btn-whatsapp:hover {
+    background-color: #0388bc;
+}
+
+.btn-enviar {
+    background-color: var(--mario-green);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 0 #2d7a30;
+    transition: transform 0.1s;
+}
+
+.btn-enviar:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #2d7a30;
+}
+
+#mensaje { text-align: center; margin-top: 15px; font-weight: bold; }
+
+.sec-title { 
+    font-size: 0.85rem; 
+    color: rgba(200, 200, 255, 0.75); 
+    margin-bottom: 10px; 
+    display: block; 
+    font-weight: bold;
+}
+
+.splash-mode {
+    border-top: none;
+    /* Glassmorphism: el galaxy de fondo se difumina a través del borde de vidrio */
+    background: rgba(5, 5, 30, 0.38);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 18px 18px 22px;
+}
+
+.splash-wrapper {
+    position: relative;
+    width: 100%;
+    line-height: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.overlay-container {
+    position: absolute;
+    /* Ajustamos la altura para que tape la frase */
+    bottom: 22.5%; 
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.btn-confirmar {
+    pointer-events: auto;
+    background-color: #FBD000; /* Amarillo Mario */
+    color: #333;
+    border: 3px solid white; /* Borde un poco más delgado */
+    /* Reducimos el padding para hacerlo más pequeño */
+    padding: 5px 40px; 
+    border-radius: 50px;
+    /* Fuente un poco más pequeña */
+    font-size: 0.9rem; 
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    transition: transform 0.2s;
+}
+
+/* --- ANIMACIÓN DE LATIDO --- */
+.pulse-animation {
+    animation: pulse-red 2s infinite;
+}
+
+.mute-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999; /* Siempre por encima de todo */
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--mario-green); /* Verde tipo tubería */
+    border: 3px solid white;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.mute-control:active {
+    transform: scale(0.9);
+}
+
+.mute-control.muted {
+    background-color: var(--mario-red); /* Cambia a rojo cuando está silenciado */
+}
+
+@keyframes pulse-red {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(251, 208, 0, 0.7);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 15px rgba(251, 208, 0, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(251, 208, 0, 0);
+    }
+}
+
+/* Efecto al presionar el botón */
+.btn-confirmar:active {
+    transform: scale(0.9);
+}
+
+@media (max-width: 400px) {
+    .mute-control {
+        top: 10px;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+
+/* ============================================
+   PANTALLAS DE CONFIRMACIÓN POST-ENVÍO
+   ============================================ */
+
+.confirmacion-screen {
+    text-align: center;
+    padding: 20px 10px 30px;
+    animation: none;
+}
+
+.confirmacion-enter {
+    animation: bounceIn 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes bounceIn {
+    0%   { opacity: 0; transform: scale(0.6); }
+    60%  { opacity: 1; transform: scale(1.08); }
+    80%  { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.confirm-icon {
+    font-size: 3.5rem;
+    margin-bottom: 2px;
+    display: block;
+    animation: wiggle 1.2s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(-5deg); }
+    50%       { transform: rotate(5deg); }
+}
+
+.confirm-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    margin: 0 0 5px;
+}
+
+.confirm-title--si {
+    color: var(--mario-green);
+    text-shadow: 2px 2px 0px #2d7a30;
+}
+
+.confirm-title--no {
+    color: var(--mario-blue);
+    text-shadow: 2px 2px 0px #0388bc;
+}
+
+.confirm-body {
+    font-size: 0.9rem;
+    color: #e8e8ff;
+    line-height: 1.4;
+    margin: 0 0 10px;
+}
+
+.confirm-body strong {
+    color: var(--mario-yellow);
+    font-weight: bold;
+}
+
+.confirm-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+    margin-bottom: 5px;
+}
+
+.confirm-badge--si {
+    background-color: var(--mario-yellow);
+    color: #333;
+    border: 2px solid #e0a800;
+    box-shadow: 0 3px 0 #c8960a;
+}
+
+.confirm-badge--no {
+    background-color: #e1f5fe;
+    color: var(--mario-blue);
+    border: 2px solid var(--mario-blue);
+    box-shadow: 0 3px 0 #0388bc;
+}
+
+.confirm-coins {
+    font-size: 2rem;
+    letter-spacing: 8px;
+    animation: floatCoins 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes floatCoins {
+    from { transform: translateY(0px); }
+    to   { transform: translateY(-8px); }
+}
+
+/* ============================================
+   DECORACIONES FLOTANTES (sprites en el fondo)
+   ============================================ */
+
+.deco-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1; /* encima del blur de fondo */
+    overflow: hidden;
+}
+
+/* Base de todos los sprites decorativos */
+.deco {
+    position: absolute;
+    image-rendering: pixelated; /* Mantiene el look retro de 8-bits */
+    pointer-events: none;
+}
+
+
+
+@keyframes floatUpDown {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-14px); }
+}
+
+/* --- MARIO CAMINANDO --- */
+.deco-mario {
+    width: 48px;
+    height: auto;
+    bottom: 80px;
+    left: -60px;
+    animation: walkAcross 14s linear infinite;
+}
+
+@keyframes walkAcross {
+    0%   { left: -60px;  }
+    100% { left: calc(100vw + 20px); }
+}
+
+/* --- BLOQUES ? --- */
+.deco-block {
+    width: 36px;
+    height: auto;
+}
+
+/* --- ESTRELLAS --- */
+.deco-star {
+    width: 36px;
+    height: auto;
+}
+
+/* Izquierda */
+.deco-star-1 {
+    top: 12%;
+    left: 25%;
+    animation: spinStar 3s linear infinite;
+}
+
+.deco-star-2 {
+    top: 35%;
+    left: 25%;
+    animation: spinStar 3.2s linear infinite 0.4s;
+}
+
+.deco-star-3 {
+    top: 45%;
+    left: 10%;
+    animation: spinStar 2.9s linear infinite 0.8s;
+}
+
+.deco-star-4 {
+    top: 65%;
+    left: 25%;
+    animation: spinStar 3.1s linear infinite 0.2s;
+}
+
+/* Derecha */
+.deco-star-5 {
+    top: 20%;
+    right: 12%;
+    animation: spinStar 3s linear infinite 0.6s;
+}
+
+.deco-star-6 {
+    top: 38%;
+    right: 28%;
+    animation: spinStar 3.2s linear infinite 0.1s;
+}
+
+.deco-star-7 {
+    top: 55%;
+    right: 15%;
+    animation: spinStar 2.8s linear infinite 0.5s;
+}
+
+.deco-star-8 {
+    top: 70%;
+    right: 25%;
+    animation: spinStar 3.1s linear infinite 0.9s;
+}
+
+@keyframes spinStar {
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+
+/* --- LUIGI CORRIENDO --- */
+.deco-luigi {
+    width: 48px;
+    height: auto;
+    bottom: 80px; 
+    left: -60px;
+    animation: walkAcross 14s linear infinite 0.8s; /* 0.8s delay para que vaya persiguiendo a Mario */
+}
+
+
+/* Asegurar que el contenido principal quede encima del blur de fondo */
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ocultar deco en pantallas muy pequeñas para no saturar */
+@media (max-width: 360px) {
+    .deco-layer { display: none; }
+}
+
+/* ============================================
+   ESTILOS GIF EN PANTALLAS DE CONFIRMACIÓN
+   ============================================ */
+
+/* Icono principal (Starman / Fire Flower) */
+.confirm-gif-icon {
+    width: 48px;
+    height: auto;
+    image-rendering: pixelated;
+    animation: wiggle 1.2s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(251, 208, 0, 0.7));
+}
+
+/* Fila de monedas animadas */
+.confirm-coins {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.confirm-gif-coin {
+    width: 28px;
+    height: auto;
+    image-rendering: pixelated;
+    animation: floatUpDown 1.4s ease-in-out infinite;
+}
+
+/* Cada moneda sube con un desfase distinto */
+.confirm-gif-coin:nth-child(1) { animation-delay: 0s; }
+.confirm-gif-coin:nth-child(2) { animation-delay: 0.15s; }
+.confirm-gif-coin:nth-child(3) { animation-delay: 0.30s; }
+.confirm-gif-coin:nth-child(4) { animation-delay: 0.45s; }
+.confirm-gif-coin:nth-child(5) { animation-delay: 0.60s; }
+
+/* Hongo 1UP en pantalla "No" */
+.confirm-gif-mushroom {
+    width: 48px;
+    height: auto;
+    image-rendering: pixelated;
+    animation: floatUpDown 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(67, 176, 71, 0.8));
+}
+
+.confirm-1up-text {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--mario-green);
+    text-shadow: 0 0 8px rgba(67, 176, 71, 0.6);
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+}
+
+/* Ajuste: confirm-coins para pantalla "No" en columna */
+#confirmacionNo .confirm-coins {
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* ============================================
+   MODAL DE ALERTA PERSONALIZADO
+   ============================================ */
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.custom-modal-content {
+    background: rgba(8, 10, 45, 0.95);
+    border: 3px solid var(--mario-red);
+    border-radius: 15px;
+    padding: 25px 20px;
+    text-align: center;
+    max-width: 320px;
+    width: 80%;
+    box-shadow: 0 0 20px rgba(229, 37, 33, 0.4);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    animation: bounceIn 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.custom-modal-content .modal-icon {
+    width: 48px;
+    image-rendering: pixelated;
+    margin-bottom: 15px;
+}
+
+.custom-modal-content p {
+    font-size: 0.95rem;
+    margin: 0 0 20px;
+    line-height: 1.5;
+}
+
+.btn-modal {
+    background-color: var(--mario-yellow);
+    color: #333;
+    border: 2px solid #c8960a;
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 0 #c8960a;
+    transition: transform 0.1s;
+    font-size: 0.9rem;
+}
+
+.btn-modal:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #c8960a;
+}
+
